@@ -60,15 +60,21 @@ Zt = np.sqrt(Z0 * abs(ZL))   # ideal λ/4 transformer impedance (at center freq)
 lambda4_length = lambda_c / 4
 
 st.header("📊 Results")
-col1, col2, col3, col4 = st.columns(4)
+
+# Better formatting for metrics - use smaller text or display differently
+col1, col2 = st.columns(2)
 with col1:
-    st.metric("Load Impedance ZL", f"{RL:+.1f}{XL:+.1f}j Ω")
+    st.markdown("**Load Impedance ZL:**")
+    st.markdown(f"`{RL:+.1f} {XL:+.1f}j Ω`")
+    st.markdown("**λ/4 Transformer Z:**")
+    st.markdown(f"`{Zt:.2f} Ω`")
 with col2:
-    st.metric("λ/4 Transformer Z", f"{Zt:.2f} Ω")
-with col3:
-    st.metric("λ/4 Length", f"{lambda4_length:.4e} m")
-with col4:
-    st.metric("Effective εᵣ", f"{er:.2f}")
+    st.markdown("**λ/4 Length:**")
+    st.markdown(f"`{lambda4_length:.4e} m`")
+    st.markdown("**Effective εᵣ:**")
+    st.markdown(f"`{er:.2f}`")
+
+st.markdown("---")
 
 # create transformer section
 transformer = rf.DefinedGammaZ0(freq, gamma=gamma, z0=Zt)
